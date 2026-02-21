@@ -1,0 +1,29 @@
+body {
+    font-family: Arial;
+    text-align: center;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+.controls {
+    margin: 20px;
+}
+
+select, button {
+    padding: 8px;
+    font-size: 16px;
+}
+
+#forecastChart {
+    width: 80%;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+#riskContainer {
+    margin-top: 20px;
+    font-size: 18px;
+}

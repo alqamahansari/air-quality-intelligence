@@ -4,31 +4,26 @@ import pandas as pd
 import os
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
 
-INPUT_PATH = BASE_DIR / "data" / "processed" / "cleaned_data.csv"
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_PATH = BASE_DIR / "data" / "processed" / "combined_clean.csv"
 OUTPUT_PATH = BASE_DIR / "data" / "processed" / "featured_data.csv"
 
 
 def create_features():
 
-    df = pd.read_csv(INPUT_PATH)
-
-    # Convert date
+    df = pd.read_csv(DATA_PATH)
     df["Date"] = pd.to_datetime(df["Date"])
 
-    # Sort properly
-    df = df.sort_values(["City", "Date"])
-
-    # ---- Time Features ----
+    # ---- Time features ----
     df["month"] = df["Date"].dt.month
     df["day_of_week"] = df["Date"].dt.dayofweek
 
-    # ---- Lag Features (per city) ----
+    # ---- Lag features per city ----
     for lag in [1, 2, 3, 7]:
         df[f"AQI_lag_{lag}"] = df.groupby("City")["AQI"].shift(lag)
 
-    # ---- Rolling Features ----
+    # ---- Rolling features per city ----
     df["AQI_roll_mean_3"] = (
         df.groupby("City")["AQI"]
           .rolling(3)
@@ -43,11 +38,39 @@ def create_features():
           .reset_index(0, drop=True)
     )
 
-    # ---- Target Shift (Next Day Prediction) ----
+    # ---- Forecast Target (Next Day AQI) ----
     df["AQI_target"] = df.groupby("City")["AQI"].shift(-1)
 
-    # Drop rows with NaN caused by shifting
-    df = df.dropna()
+    # ---- Health Risk Category (Based on AQI_target) ----
+    def categorize_aqi(aqi):
+        if aqi <= 50:
+            return 0  # Good
+        elif aqi <= 100:
+            return 1  # Satisfactory
+        elif aqi <= 200:
+            return 2  # Moderate
+        elif aqi <= 300:
+            return 3  # Poor
+        elif aqi <= 400:
+            return 4  # Very Poor
+        else:
+            return 5  # Severe
+
+    df["AQI_Category"] = df["AQI_target"].apply(categorize_aqi)
+
+    # ---- Drop rows only required for forecasting/classification ----
+    forecast_cols = [
+        "AQI_lag_1",
+        "AQI_lag_2",
+        "AQI_lag_3",
+        "AQI_lag_7",
+        "AQI_roll_mean_3",
+        "AQI_roll_mean_7",
+        "AQI_target",
+        "AQI_Category"
+    ]
+
+    df = df.dropna(subset=forecast_cols)
 
     # Save
     os.makedirs(BASE_DIR / "data" / "processed", exist_ok=True)
