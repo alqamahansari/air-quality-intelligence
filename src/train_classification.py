@@ -35,6 +35,10 @@ def train_classifier():
         "AQI_roll_mean_7",
         "month",
         "day_of_week",
+        "temp_max",
+        "temp_min",
+        "precipitation",
+        "wind_speed"
     ] + [col for col in df.columns if col.startswith("City_")]
 
     X_train = train[features]

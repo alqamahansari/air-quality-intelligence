@@ -1,8 +1,12 @@
+fastapi
+uvicorn[standard]
 pandas
 numpy
 scikit-learn
 xgboost
-matplotlib
-seaborn
 joblib
-streamlit
+shap
+jinja2
+python-multipart
+websockets
+requests

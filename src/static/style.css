@@ -1,0 +1,269 @@
+/* ================= ROOT VARIABLES ================= */
+
+:root {
+    --bg-primary: #f8fafc;
+    --bg-card: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent: #3b82f6;
+    --border: #e2e8f0;
+    --shadow: rgba(0,0,0,0.08);
+}
+
+/* Auto Dark Mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #0f172a;
+        --bg-card: #1e293b;
+        --text-primary: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --accent: #38bdf8;
+        --border: #334155;
+        --shadow: rgba(0,0,0,0.6);
+    }
+}
+
+/* Manual Override */
+body.dark {
+    --bg-primary: #0f172a;
+    --bg-card: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --accent: #38bdf8;
+    --border: #334155;
+    --shadow: rgba(0,0,0,0.6);
+}
+
+body.light {
+    --bg-primary: #f8fafc;
+    --bg-card: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent: #3b82f6;
+    --border: #e2e8f0;
+    --shadow: rgba(0,0,0,0.08);
+}
+
+/* ================= BASE ================= */
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    transition: 0.3s ease;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* ================= HERO HEADER ================= */
+
+.hero-header {
+    position: relative;
+    text-align: center;
+    padding: 80px 20px 50px 20px;
+}
+
+.hero-header h1 {
+    font-size: 44px;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 35px;
+    font-size: 16px;
+}
+
+/* Theme Toggle */
+.top-right {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+}
+
+.theme-toggle {
+    background: transparent;
+    font-size: 22px;
+    border: none;
+    cursor: pointer;
+}
+
+/* ================= SEARCH BAR ================= */
+
+.search-wrapper {
+    display: flex;
+    justify-content: center;
+    max-width: 650px;
+    margin: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px var(--shadow);
+}
+
+.search-wrapper input {
+    flex: 1;
+    padding: 16px 22px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: transparent;
+    color: var(--text-primary);
+}
+
+.search-wrapper button {
+    padding: 16px 30px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.search-wrapper button:hover {
+    opacity: 0.9;
+}
+
+/* ================= LIVE CARD ================= */
+
+.live-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-card);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 15px 40px var(--shadow);
+    border: 1px solid var(--border);
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.live-value {
+    font-size: 70px;
+    font-weight: 700;
+}
+
+.forecast-value {
+    font-size: 42px;
+    font-weight: 600;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* ================= AQI BADGE ================= */
+
+.badge {
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 10px;
+    color: white;
+}
+
+.good { background: #16a34a; }
+.moderate { background: #eab308; }
+.unhealthy { background: #f97316; }
+.very-unhealthy { background: #ef4444; }
+.hazardous { background: #7e22ce; }
+
+/* ================= DASHBOARD GRID ================= */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.card {
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 15px 40px var(--shadow);
+    border: 1px solid var(--border);
+}
+
+/* ================= MAP ================= */
+
+#map {
+    height: 420px;
+    border-radius: 18px;
+}
+
+/* ================= RISK BOX ================= */
+
+.risk-box {
+    margin-top: 20px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(59,130,246,0.1);
+}
+
+/* ================= LOADER ================= */
+
+.loader {
+    text-align: center;
+    padding: 25px;
+}
+
+.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border);
+    border-top: 4px solid var(--accent);
+    border-radius: 50%;
+    margin: auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    border-top: 1px solid var(--border);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .live-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
+
+    .hero-header h1 {
+        font-size: 32px;
+    }
+}

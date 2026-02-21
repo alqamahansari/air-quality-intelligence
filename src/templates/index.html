@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Air Quality Intelligence</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= HERO HEADER ================= -->
+
+    <header class="hero-header">
+
+        <!-- Theme Toggle (Top Right) -->
+        <div class="top-right">
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </div>
+
+        <!-- Centered Title + Search -->
+        <div class="hero-content">
+
+            <h1>🌍 Air Quality Intelligence</h1>
+            <p class="subtitle">
+                AI-Powered AQI Forecasting & Risk Analysis
+            </p>
+
+            <div class="search-wrapper">
+
+                <input 
+                    type="text" 
+                    id="cityInput"
+                    placeholder="Search city (Delhi, Mumbai, Bengaluru...)"
+                    list="citySuggestions"
+                >
+
+                <datalist id="citySuggestions">
+                    <option value="Delhi">
+                    <option value="Mumbai">
+                    <option value="Bengaluru">
+                    <option value="Chennai">
+                    <option value="Hyderabad">
+                </datalist>
+
+                <button onclick="handleSearch()">Search</button>
+
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- ================= LIVE AQI CARD ================= -->
+
+    <section class="live-card">
+
+        <div>
+            <h2>Live AQI</h2>
+            <div id="liveAQI" class="live-value">--</div>
+            <div id="liveCategory" class="badge"></div>
+            <div id="lastUpdated" class="timestamp"></div>
+        </div>
+
+        <div>
+            <h3>Tomorrow Prediction</h3>
+            <div id="tomorrowAQI" class="forecast-value">--</div>
+            <div id="confidenceLevel" class="confidence"></div>
+        </div>
+
+    </section>
+
+
+    <!-- ================= LOADER ================= -->
+
+    <div id="loader" class="loader hidden">
+        <div class="spinner"></div>
+        <p>Fetching real-time data...</p>
+    </div>
+
+
+    <!-- ================= DASHBOARD GRID ================= -->
+
+    <div class="dashboard-grid">
+
+        <!-- Forecast -->
+        <div class="card">
+            <h3>7-Day Forecast (With Uncertainty)</h3>
+            <canvas id="forecastChart"></canvas>
+            <div id="riskContainer" class="risk-box"></div>
+        </div>
+
+        <!-- Map -->
+        <div class="card">
+            <h3>City AQI Map</h3>
+            <div id="map"></div>
+        </div>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+        Built with Machine Learning • XGBoost Forecasting • Real-Time Streaming
+    </footer>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>
